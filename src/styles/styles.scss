@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+
+body{
+    background-color: #263238;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    display: flex;
+    height: 100vh;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#root{
+    width: min-content;
+}
+
+.insideTimer{
+  color: inherit;
+}
+
+.timer{
+    font-size: 8rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.timerButton{
+    border: 0;
+    background-color: darken( #263238, 4);
+    color: #88b1c5;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.5rem;
+    display: block;
+    width: 20rem;
+}
+
+.btn-group{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: 100%;
+}
+
+.btn{
+    flex-grow: 1;
+    background-color:  darken( #263238, 4);
+    padding: 0.5rem;
+    border: 1px #263238 solid;
+    font-size: 1.2rem;
+    color: #88b1c5;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 3px;
+}
+
+
+
+@keyframes timerAnim {
+    from{
+      color: #88b1c5;
+    }
+    to {
+      color: red;
+    }
+    50% {
+      color: orange;
+    }
+  
+  }
