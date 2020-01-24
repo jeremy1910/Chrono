@@ -3,8 +3,8 @@ import React, { useState, useEffect, Fragment } from 'react';
 import 'minireset.css'
 import './styles/styles.scss';
 import Timer from './components/Timer';
-
-
+import  Commands  from './components/Commands';
+import {CSSTransition} from 'react-transition-group'
 
 function App() {
 
@@ -12,8 +12,10 @@ function App() {
   const [start, setStart] = useState(true)
   const [hidden, setHidden] = useState(false)
   const [countValue, setCountValue] = useState(0)
+  const [compteurTour, setCompteurTour] = useState([])
 
   let timerRef = null
+  let refDisplayTour = null
 
   useEffect(() => {
     setHidden(false)
@@ -32,41 +34,64 @@ function App() {
 
   }
 
+
+  const handelClickTour = () => {
+
+    const countToAdd = document.getElementsByClassName('insideTimer')[0]
+    const container = refDisplayTour.clientHeight
+    const windowsHeight = window.innerHeight
+    const OneRem = parseFloat(window.getComputedStyle(document.getElementsByTagName('body')[0], null).getPropertyValue('font-size'))
+
+    if((container + OneRem*3) < windowsHeight){
+      setCompteurTour([...compteurTour, countToAdd.innerText])
+    }else{
+      
+      const compteurTourCopy = [...compteurTour]
+      compteurTourCopy.pop()
+      setCompteurTour([...compteurTourCopy, countToAdd.innerText])
+    }
+
+    
+  }
+
   const handelPlayPause = () => {
     setStart(!start)
-    if (start) {
-      timerRef.style.animationPlayState = 'paused'
-    }
-    else {
-      timerRef.style.animationPlayState = 'running'
-    }
 
   }
 
   const handelClickSetButton = () => {
-    setCountValue(valueInput)
+
     setHidden(true)
+    setCompteurTour([])
   }
 
-  return (
-    <Fragment>
-      {!hidden ?
-        <div className={'timer'} ref={c => timerRef = c}>
-          <Timer
-            Count={countValue}
-            Start={start}
-            OnStop={() => { setHidden(true) }}
-            OnFirstStart={handelOnFirstStart}
-            ClassName={'insideTimer'} />
-        </div>
-        : null}
+  const displayCountTour = () => compteurTour.map((cnt, index) => <CSSTransition appear={true} key={index} in={true} classNames="fade" timeout={3000}><li >   <span>Tour {index+1} : </span>{cnt}</li></CSSTransition>)
 
-      <input className={'timerButton'} type="text" value={valueInput} onChange={handelChange} />
-      <div className={'btn-group'}>
-        <button className={'btn'} onClick={handelPlayPause}>Start/Stop</button>
-        <button className={'btn'} onClick={handelClickSetButton}>Set value</button>
+  return (
+    <div className={"main-container"}>
+
+      <div className={'timer'}>
+        <Timer
+          Count={countValue}
+          Start={start}
+          OnStop={() => { setHidden(true) }}
+          Reset={hidden}
+          ClassName={'insideTimer'} />
       </div>
-    </Fragment>
+
+      <Commands handelClickTour={handelClickTour} handelPlayPause={handelPlayPause} handelClickSetButton={handelClickSetButton}></Commands>
+      <div ref={ c => refDisplayTour = c} className={'display-tour'}>
+      {compteurTour.length > 0 ?
+           
+           <ul>
+             
+              {displayCountTour()}
+         
+           </ul>
+         
+    :null}
+ </div>
+    </div>
 
   );
 }

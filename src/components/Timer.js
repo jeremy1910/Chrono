@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
-function Timer({ Count, Start, OnStop, OnFirstStart, ClassName }) {
+function Timer({ Count, Start, OnStop, ClassName, Reset }) {
 
     const [count, setCount] = useState(Count)
     const [instance, setInstance] = useState(null)
 
     const handler = () => {
-        setCount((prev) => prev - 1)
+        setCount((prev) => prev + 1)
     }
 
 
@@ -15,7 +15,7 @@ function Timer({ Count, Start, OnStop, OnFirstStart, ClassName }) {
 
         if (Start && instance === null) {
             setInstance(setInterval(handler, 1000))
-            OnFirstStart()
+        
         }
         if (!Start && instance) {
             clearInterval(instance)
@@ -27,20 +27,16 @@ function Timer({ Count, Start, OnStop, OnFirstStart, ClassName }) {
         }
     }, [Count, Start])
 
-
+    useEffect(() => {
+        if(Reset){
+            setCount(0)
+        }
+    }, [Reset])
 
     useEffect(() => {
+        console.log('ok')
         setCount(Count)
     }, [Count])
-
-
-    useEffect(() => {
-        if (count <= 0) {
-            clearInterval(instance)
-            setInstance(null)
-            OnStop()
-        }
-    }, [count])
 
 
 
