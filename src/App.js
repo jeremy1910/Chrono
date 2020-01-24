@@ -65,7 +65,7 @@ function App() {
     setCompteurTour([])
   }
 
-  const displayCountTour = () => compteurTour.map((cnt, index) => <CSSTransition appear={true} key={index} in={true} classNames="fade" timeout={3000}><li >   <span>Tour {index+1} : </span>{cnt}</li></CSSTransition>)
+  const displayCountTour = () => compteurTour.map((cnt, index) => <CSSTransition appear={true} key={index} in={true} classNames="fade" timeout={300}><li >   <span>Tour {index+1} : </span>{cnt}</li></CSSTransition>)
 
   return (
     <div className={"main-container"}>

@@ -124,10 +124,10 @@ body{
 
 
 .fade-appear{
-  color: red;
+  opacity: 0;
 }
 
 .fade-appear-active {
-color: rebeccapurple;
-transition: all 3000ms;
+opacity: 1;
+transition: all 300ms;
 } 

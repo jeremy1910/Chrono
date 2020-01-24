@@ -6,7 +6,7 @@ function Timer({ Count, Start, OnStop, ClassName, Reset }) {
     const [instance, setInstance] = useState(null)
 
     const handler = () => {
-        setCount((prev) => prev + 1)
+        setCount((prev) => prev + 10)
     }
 
 
@@ -14,7 +14,7 @@ function Timer({ Count, Start, OnStop, ClassName, Reset }) {
     useEffect(() => {
 
         if (Start && instance === null) {
-            setInstance(setInterval(handler, 1000))
+            setInstance(setInterval(handler, 10))
         
         }
         if (!Start && instance) {
@@ -38,11 +38,14 @@ function Timer({ Count, Start, OnStop, ClassName, Reset }) {
         setCount(Count)
     }, [Count])
 
-
+  const formatCount = () => {
+    const timeFormated = new Date(count)
+    return `${timeFormated.getSeconds()}:${(timeFormated.getMilliseconds()/10) < 10 ? '00'  : '' + timeFormated.getMilliseconds()/10}`
+  }
 
     return (
         <span className={ClassName}>
-            {count}
+            {formatCount()}
         </span>
     )
 }
