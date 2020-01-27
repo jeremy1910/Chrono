@@ -34,13 +34,12 @@ function Timer({ Count, Start, OnStop, ClassName, Reset }) {
     }, [Reset])
 
     useEffect(() => {
-        console.log('ok')
         setCount(Count)
     }, [Count])
 
   const formatCount = () => {
     const timeFormated = new Date(count)
-    return `${timeFormated.getSeconds()}:${(timeFormated.getMilliseconds()/10) < 10 ? '00'  : '' + timeFormated.getMilliseconds()/10}`
+    return `${Math.floor(count/1000)}:${(timeFormated.getMilliseconds()/10) < 10 ? '00'  : '' + timeFormated.getMilliseconds()/10}`
   }
 
     return (
